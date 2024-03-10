@@ -179,7 +179,7 @@ const pokemons = [
     }
 ]
 
-function lmao(pokemons, desiredHeight)
+function fn(pokemons, desiredHeight)
 {
     let list = []
     for(let i = 0; i < pokemons.length; i++)
@@ -193,5 +193,5 @@ function lmao(pokemons, desiredHeight)
     return list
 }
 
-answer = lmao(pokemons, 10)
+answer = fn(pokemons, 10)
 console.log(answer)
