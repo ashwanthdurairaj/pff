@@ -179,18 +179,10 @@ const pokemons = [
     }
 ]
 
-function fn(pokemons, desiredTypes)
+function filterPokemonBasedOnType(pokemons, desiredTypes)
 {
-    let list = []
-    for(let i = 0; i < pokemons.length; i++)
-    {
-        if(pokemons[i].types[0].type.name == desiredTypes)
-        {
-            list.push(pokemons[i])
-        }
-    }
-    return list
+    return pokemons.filter((pokemon) => pokemon.types[0].type.name == desiredTypes)
 }
 
-answer = fn(pokemons, 'fire')
+answer = filterPokemonBasedOnType(pokemons, 'fire')
 console.log(answer)

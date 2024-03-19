@@ -181,24 +181,8 @@ const pokemon = [
 
 function sortPokemon(pokemon)
 {
-    for(let i = 0; i < pokemon.length - 1; i++)
-    {
-        let minimum = i + 1
-        for(let j = i + 1; j < pokemon.length; j++)
-        {
-            if(pokemon[j].weight < pokemon[minimum].weight)
-            {
-                minimum = j
-            }
-        }
 
-        if(pokemon[i].weight > pokemon[minimum].weight)
-        {
-            let temp = pokemon[i].weight
-            pokemon[i].weight = pokemon[minimum].weight
-            pokemon[minimum].weight = temp
-        }
-    }
+    pokemon.sort((firstElement, secondElement) => firstElement.weight - secondElement.weight);
 
     return pokemon
 }

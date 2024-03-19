@@ -222,20 +222,14 @@ const pokemonDescription = [
     }
 ]
 
-function fn(pokemons, pokemonDescription)
+function combineTwoObjects(pokemons, pokemonDescription)
 {
-    let list = []
-    for(let i = 0; i < pokemons.length; i++)
-    {
-        let obj = {}
-        obj.id = pokemons[i].id
-        obj.name = pokemons[i].name
-        obj.description = pokemonDescription[i].description
-        list.push(obj)
-    }
-
-    return list
+    return pokemons.map((pokemon) => ({
+        id: pokemon.id,
+        name: pokemon.name,
+        description: pokemonDescription.find(pd => pd.id == pokemon.id),
+    }))
 }
 
-answer = fn(pokemons, pokemonDescription)
+answer = combineTwoObjects(pokemons, pokemonDescription)
 console.log(answer)

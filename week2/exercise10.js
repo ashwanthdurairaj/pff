@@ -179,19 +179,12 @@ const pokemons = [
     }
 ]
 
-function fn(pokemons, desiredHeight)
+function filterPokemonBasedOnHeight(pokemons, desiredHeight)
 {
-    let list = []
-    for(let i = 0; i < pokemons.length; i++)
-    {
-        if(pokemons[i].height >= desiredHeight)
-        {
-            list.push(pokemons[i])
-        }
-    }
-
-    return list
+    return pokemons.filter((pokemon) => 
+        pokemon.height >= desiredHeight
+    )
 }
 
-answer = fn(pokemons, 10)
+answer = filterPokemonBasedOnHeight(pokemons, 10)
 console.log(answer)
