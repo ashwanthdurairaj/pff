@@ -222,14 +222,26 @@ const pokemonDescription = [
     }
 ]
 
-function combineTwoObjects(pokemons, pokemonDescription)
+
+
+function reducer(accumulator, currentValue)
 {
-    return pokemons.map((pokemon) => ({
-        id: pokemon.id,
-        name: pokemon.name,
-        description: pokemonDescription.find(pd => pd.id == pokemon.id),
-    }))
+    accumulator[currentValue.id] = currentValue
+    return accumulator
 }
 
-answer = combineTwoObjects(pokemons, pokemonDescription)
+const pokemonObject = pokemonDescription.reduce(reducer, {})
+
+function combineTwoObjects(pokemons)
+{
+    return pokemons.map((pokemon) => (
+        {
+        id: pokemon.id,
+        name: pokemon.name,
+        description: pokemonObject[pokemon.id]['description'] 
+    }
+    ))
+}
+
+const answer = combineTwoObjects(pokemons, pokemonDescription)
 console.log(answer)

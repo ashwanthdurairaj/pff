@@ -184,7 +184,8 @@ function filterPokemonBasedOnHeight(pokemons, desiredHeight)
     return pokemons.filter((pokemon) => 
         pokemon.height >= desiredHeight
     )
+
 }
 
-answer = filterPokemonBasedOnHeight(pokemons, 10)
+answer = filterPokemonBasedOnHeight(pokemons, 15)
 console.log(answer)

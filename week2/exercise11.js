@@ -174,6 +174,13 @@ const pokemons = [
                     "name": "bug",
                     "url": "https://pokeapi.co/api/v2/type/7/"
                 }
+            },
+            {
+                "slot": 2,
+                "type": {
+                    "name": "poison",
+                    "url": "https://pokeapi.co/api/v2/type/7/"
+                }
             }
         ]
     }
@@ -181,8 +188,14 @@ const pokemons = [
 
 function filterPokemonBasedOnType(pokemons, desiredTypes)
 {
-    return pokemons.filter((pokemon) => pokemon.types[0].type.name == desiredTypes)
+    // return pokemons.filter((pokemon) => (pokemon.types.some((types) => (types.type.name == desiredTypes)) == true))
+    function findPokemonByType(types)
+    {
+        return types.type.name == desiredTypes    
+    }
+
+    return pokemons.filter((pokemon) => (pokemon.types.some(findPokemonByType) == true))
 }
 
-answer = filterPokemonBasedOnType(pokemons, 'fire')
+answer = filterPokemonBasedOnType(pokemons, 'poison')
 console.log(answer)
