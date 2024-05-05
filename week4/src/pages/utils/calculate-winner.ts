@@ -18,6 +18,5 @@ function calculateWinner(squares : ('X' | 'O' | null)[]) {
       }
     }
     return null;
-
 }  
 export default calculateWinner

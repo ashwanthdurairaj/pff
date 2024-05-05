@@ -10,7 +10,7 @@ export default function Home() {
   const [currentMove, setCurrentMove] = useState(0);
   const xIsNext = currentMove % 2 === 0;
   const currentSquares = history[currentMove];
-
+  
   function handlePlay(nextSquares : ('X' | 'O' | null)[]) {
     const nextHistory = [...history.slice(0, currentMove + 1), nextSquares];
     sethistory(nextHistory);
