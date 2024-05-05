@@ -2,15 +2,18 @@ import Square from './square'
 import calculateWinner from '../utils/calculate-winner'
 
 function Board({ xIsNext, squares, onPlay }) {
-    function handleClick(index) {
+  
+  const PLAYER1 = 'X'
+  const PLAYER2 = 'O'
+  function handleClick(index) {
       if (squares[index] || calculateWinner(squares)) {
         return;
       }
       const nextSquares = squares.slice();
       if (xIsNext) {
-        nextSquares[index] = 'X';
+        nextSquares[index] = PLAYER1;
       } else {
-        nextSquares[index] = 'O';
+        nextSquares[index] = PLAYER2;
       }
       onPlay(nextSquares);
     }
@@ -20,7 +23,7 @@ function Board({ xIsNext, squares, onPlay }) {
     if (winner) {
       status = 'Winner: ' + winner;
     } else {
-      status = 'Next Player: ' + (xIsNext ? 'X' : 'O');
+      status = 'Next Player: ' + (xIsNext ? PLAYER1 : PLAYER2);
     }
     return (
       <>
