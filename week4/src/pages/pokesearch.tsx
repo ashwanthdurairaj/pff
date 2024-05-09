@@ -1,4 +1,4 @@
-import React, {ChangeEvent, FormEvent, useState} from 'react'
+import React, {ChangeEvent, FormEvent, useState, useCallback} from 'react'
 import Search from './components/search'
 import DisplayTable from './components/displaytable'
 
@@ -17,7 +17,7 @@ function PokeSearch()
     const onChange = (event : ChangeEvent<HTMLInputElement>) => {
         setSearch(event.target.value)
     }
-
+    
     const submit = (event : FormEvent<HTMLFormElement>) => {
         
         event.preventDefault()
@@ -36,10 +36,10 @@ function PokeSearch()
 
 
     return (
-        <>
+        <div className="centered-container">
         <Search search = {search} change = {onChange} submit = {submit}/>
         <DisplayTable display = {display}/>
-        </>
+        </div>
     )
 }
 

@@ -12,24 +12,24 @@ const DisplayTable : React.FC<displayProps> = ({display}) =>
 {
     const {name, id, type, picture} = display
     return (
-        <>
         <div>
-            {name}
+            <img src={picture} alt="Pokemon"></img>
+            <br></br>
+            Name: {name}
+            <br></br>
+            ID: {id}
+            <br></br>
+            Types: 
+            <div className="types-container">
+            {type.map((pokemon, index) => (
+            <div key={index} className="type-item">
+                {pokemon}
+            </div>
+            ))}
+            </div>
+            
         </div>
-        <div>
-            {id}
-        </div>
-        <div>
-        {type.map((pokemon, index) => (
-        <div key={index}>
-            <p>{pokemon}</p>
-        </div>
-        ))}
-        </div>
-        <div>
-            <img src={picture}></img>
-        </div>
-        </>
+
     )
 }
 

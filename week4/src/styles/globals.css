@@ -88,3 +88,26 @@
   .game-info {
     margin-left: 20px;
   }
+
+  .centered {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .centered-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Adjust the height as per your requirement */
+}
+
+.types-container {
+  display: flex;
+}
+
+.type-item {
+  margin-right: 10px; /* Adjust spacing between items */
+}
