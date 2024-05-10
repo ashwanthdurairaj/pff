@@ -1,4 +1,5 @@
 import React from 'react'
+import DisplayPokemon from './displaypokemon'
 
 interface displayProps{
     display: {name: string,
