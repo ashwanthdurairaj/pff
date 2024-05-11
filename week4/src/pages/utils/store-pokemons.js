@@ -23,4 +23,48 @@ const storePokemon = async() => {
     });
 } 
 
-storePokemon()
+const accessPokemon = async(pokemon) => {
+
+  fs.readFile('pokemon.json', 'utf-8', async (err, jsonString) => {
+
+    if(err)
+    {
+      console.log("Error opening file: ", err)
+    }
+
+    const data = JSON.parse(jsonString)
+    const pokemonList = []
+    Object.keys(data).forEach((key) => {
+      if(key.includes(pokemon))
+        {
+          pokemonList.push(data[key].url)
+        }
+    })
+
+  // Array to store fetched Pokemon features
+  let listOfPokemonFeatures = [];
+
+  // Array to store fetch promises
+  let fetchPromises = pokemonList.map(async (link) => {
+    let data = await fetch(link);
+    let pokemon = await data.json();
+    let pokeObject = {
+      name: pokemon.name,
+      id: pokemon.id,
+      type: pokemon.types.map((type) => type.type.name),
+      image: pokemon.sprites.front_default
+    };
+    listOfPokemonFeatures.push(pokeObject);
+  });
+
+  // Wait for all fetch promises to resolve
+  await Promise.all(fetchPromises);
+
+  // Now, all data should be fetched
+  console.log(listOfPokemonFeatures);
+
+
+  })
+}
+
+accessPokemon('cha')
