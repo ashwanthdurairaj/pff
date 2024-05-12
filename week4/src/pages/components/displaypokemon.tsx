@@ -10,10 +10,13 @@ const DisplayPokemon : React.FC<pokemonProps> = ({pokemon, key}) =>
     return (
         <>
         <li key={key}>
-        {pokemon.image}
+        <img src={pokemon.image}></img>
+        <br></br>
         Name: {pokemon.name}
+        <br></br>
         ID: {pokemon.id}
-        Type: {pokemon.map((pokemon : string, index : number) => (
+        <br></br>
+        Type: {pokemon.type.map((pokemon : string, index : number) => (
             <div key={index} className="type-item">
                 {pokemon}
          </div>

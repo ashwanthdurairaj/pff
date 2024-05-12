@@ -11,18 +11,18 @@ export default async function handler(
   res: NextApiResponse<Data>,
 ) {
 
-    const { search } = req.query;
+    const { pokemon } = req.query;
     let listOfPokemonFeatures : Record<string, any>[] = []
 
     const jsonString = await fs.readFile(process.cwd() + '/src/pages/api/pokemon.json', 'utf-8');
 
     const data = JSON.parse(jsonString)
     let fetchPromises: Promise<void>[] = [];
-
+    console.log("Search: ", pokemon)
     // Iterate over each key in the data object
     Object.keys(data).forEach((key) => {
       // Check if the search string is a substring of the key
-      if (typeof search === 'string' && key.includes(search)) {
+      if (typeof pokemon === 'string' && key.includes(pokemon)) {
         // Push the fetch promise to the array
         fetchPromises.push(
           new Promise(async (resolve, reject) => {
@@ -50,7 +50,6 @@ export default async function handler(
       }
     });
   await Promise.all(fetchPromises)
-  console.log(listOfPokemonFeatures)
   res.status(200).json({list: listOfPokemonFeatures})
 
 }
