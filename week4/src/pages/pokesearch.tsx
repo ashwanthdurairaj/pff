@@ -15,50 +15,21 @@ function PokeSearch()
         setSearch(event.target.value)
     }
     
-    const submit = (event : FormEvent<HTMLFormElement>) => {
+    const submit = async(event : FormEvent<HTMLFormElement>) => {
         
         event.preventDefault()
-        
-        fs.readFile('pokemon.json', 'utf-8', async(err, jsonString) => {
 
-            if(err)
-            {
-              console.log("Error opening file: ", err)
-            }
-        
-            const data = JSON.parse(jsonString)
-            const listOfPokemons : string[] = []
+        const dataToSend = {pokemon : search}
 
-            Object.keys(data).forEach((key) => {
-              if(key.includes(search))
-                {
-                  console.log(key)
-                  listOfPokemons.push(data[key].url)
-                }
-            })
+        const queryParams = new URLSearchParams(dataToSend);
 
-            // Array to store fetched Pokemon features
-            let listOfPokemonFeatures : Record<string, any>[] = [];
+        const url = `/api/hello?${queryParams}`;
 
-            // Array to store fetch promises
-            let fetchPromises = listOfPokemons.map(async (link) => {
-            let data = await fetch(link);
-            let pokemon = await data.json();
-            let pokeObject : Record<string, any> = {
-                name: pokemon.name,
-                id: pokemon.id,
-                type: pokemon.types.map((type : Record<string, any>) => type.type.name),
-                image: pokemon.sprites.front_default
-            };
-            listOfPokemonFeatures.push(pokeObject);
-            });
+        const response = await fetch(url);
 
-    // Wait for all fetch promises to resolve
-        await Promise.all(fetchPromises);
-
-    // Now, all data should be fetched
-        setPokemonList(listOfPokemonFeatures)
-    })
+        const lmao = await response.json()
+        console.log(lmao)
+        setPokemonList(lmao.list)
     }
 
 

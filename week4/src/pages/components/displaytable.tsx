@@ -7,30 +7,13 @@ interface displayProps{
 
 const DisplayTable : React.FC<displayProps> = ({list}) =>
 {
-    // const {name, id, type, picture} = display
-    // return (
-    //     <div>
-    //         <img src={picture} alt="Pokemon"></img>
-    //         <br></br>
-    //         Name: {name}
-    //         <br></br>
-    //         ID: {id}
-    //         <br></br>
-    //         Types: 
-    //         <div className="types-container">
-    //         {type.map((pokemon, index) => (
-    //         <div key={index} className="type-item">
-    //             {pokemon}
-    //         </div>
-    //         ))}
-    //         </div>
-            
-    //     </div>
-
-    // )
     return (
         <div>
-
+            {list.length > 0 && list.map((pokemon, index) => (
+            <ul>
+                <DisplayPokemon pokemon={pokemon} key={index}/>
+            </ul>
+        ))}
         </div>
     )
 }

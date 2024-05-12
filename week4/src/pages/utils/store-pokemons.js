@@ -33,35 +33,52 @@ const accessPokemon = async(pokemon) => {
     }
 
     const data = JSON.parse(jsonString)
-    const pokemonList = []
-    Object.keys(data).forEach((key) => {
+
+    let listOfPokemonFeatures = []
+    let fetchPromises = Object.keys(data).map(async(key) => {
       if(key.includes(pokemon))
-        {
-          pokemonList.push(data[key].url)
-        }
+      {
+        let response = await fetch(data[key].url)
+        let pokemon = await response.json()
+        let pokeObject = {
+        name: pokemon.name,
+        id: pokemon.id,
+        type: pokemon.types.map((type) => type.type.name),
+        image: pokemon.sprites.front_default
+      };
+        listOfPokemonFeatures.push(pokeObject);
+        console.log(listOfPokemonFeatures)
+      }
     })
 
-  // Array to store fetched Pokemon features
-  let listOfPokemonFeatures = [];
+    await Promise.all(fetchPromises)
+    console.log(listOfPokemonFeatures)
+    // const pokemonList = []
+  //   Object.keys(data).forEach((key) => {
+  //     if(key.includes(pokemon))
+  //       {
+  //         pokemonList.push(data[key].url)
+  //       }
+  //   })
 
-  // Array to store fetch promises
-  let fetchPromises = pokemonList.map(async (link) => {
-    let data = await fetch(link);
-    let pokemon = await data.json();
-    let pokeObject = {
-      name: pokemon.name,
-      id: pokemon.id,
-      type: pokemon.types.map((type) => type.type.name),
-      image: pokemon.sprites.front_default
-    };
-    listOfPokemonFeatures.push(pokeObject);
-  });
+  // // Array to store fetched Pokemon features
+  // let listOfPokemonFeatures = [];
 
-  // Wait for all fetch promises to resolve
-  await Promise.all(fetchPromises);
+  // // Array to store fetch promises
+  // let fetchPromises = pokemonList.map(async (link) => {
+  //   let data = await fetch(link);
+  //   let pokemon = await data.json();
+  //   let pokeObject = {
+  //     name: pokemon.name,
+  //     id: pokemon.id,
+  //     type: pokemon.types.map((type) => type.type.name),
+  //     image: pokemon.sprites.front_default
+  //   };
+  //   listOfPokemonFeatures.push(pokeObject);
+  // });
 
-  // Now, all data should be fetched
-  console.log(listOfPokemonFeatures);
+  // // Wait for all fetch promises to resolve
+  // await Promise.all(fetchPromises);
 
 
   })
