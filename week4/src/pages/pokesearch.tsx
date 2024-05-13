@@ -8,6 +8,8 @@ function PokeSearch()
 
     const [search, setSearch] = useState("")
 
+    const [loading, setLoading] = useState(false)
+
     const [pokemonList, setPokemonList] = useState<Record<string, any>[]>([])
     
     
@@ -25,18 +27,22 @@ function PokeSearch()
 
         const url = `/api/hello?${queryParams}`;
 
+        setLoading(true)
+
         const response = await fetch(url);
 
-        const lmao = await response.json()
-        console.log(lmao)
-        setPokemonList(lmao.list)
+        const responseInJson = await response.json()
+
+        setPokemonList(responseInJson.list)
+
+        setLoading(false)
     }
 
 
     return (
         <div className="centered-container">
         <Search search = {search} change = {onChange} submit = {submit}/>
-        <DisplayTable list = {pokemonList}/>
+        <DisplayTable list = {pokemonList} loading = {loading}/>
         </div>
     )
 }

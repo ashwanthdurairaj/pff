@@ -19,34 +19,33 @@ export default async function handler(
     const data = JSON.parse(jsonString)
     let fetchPromises: Promise<void>[] = [];
     console.log("Search: ", pokemon)
-    // Iterate over each key in the data object
     Object.keys(data).forEach((key) => {
-      // Check if the search string is a substring of the key
-      if (typeof pokemon === 'string' && key.includes(pokemon)) {
-        // Push the fetch promise to the array
-        fetchPromises.push(
-          new Promise(async (resolve, reject) => {
-            try {
-              // Fetch the data from the URL
-              let response = await fetch(data[key].url);
-              if (!response.ok) {
-                throw new Error('Failed to fetch data');
+      if (typeof pokemon === 'string') {
+        const regex = new RegExp(pokemon, 'i');
+        if(regex.test(key))
+        {
+          fetchPromises.push(
+            new Promise(async (resolve, reject) => {
+              try {
+                let response = await fetch(data[key].url);
+                if (!response.ok) {
+                  throw new Error('Failed to fetch data');
+                }
+                let pokemon = await response.json();
+                let pokeObject = {
+                  name: pokemon.name,
+                  id: pokemon.id,
+                  type: pokemon.types.map((type: Record<string, any>) => type.type.name),
+                  image: pokemon.sprites.front_default
+                };
+                listOfPokemonFeatures.push(pokeObject);
+                resolve();
+              } catch (error) {
+                reject(error);
               }
-              let pokemon = await response.json();
-              let pokeObject = {
-                name: pokemon.name,
-                id: pokemon.id,
-                type: pokemon.types.map((type: Record<string, any>) => type.type.name),
-                image: pokemon.sprites.front_default
-              };
-              listOfPokemonFeatures.push(pokeObject);
-              // console.log(listOfPokemonFeatures);
-              resolve(); // Resolve the promise
-            } catch (error) {
-              reject(error); // Reject the promise if an error occurs
-            }
-          })
-        );
+            })
+          );
+        }
       }
     });
   await Promise.all(fetchPromises)
