@@ -8,16 +8,19 @@ interface displayProps{
 
 const DisplayTable : React.FC<displayProps> = ({list, loading}) =>
 {
+
     return (
-        <div className="types-container">
-            {loading && <p className="types-container">Loading...</p>}
-            {list.length > 0 ? (list.map((pokemon, index) => (
-            <ul>
+        
+        <div className="list-containers">
+            {loading ? (<div className="types-container">Loading...</div>) : (list.length > 0 ? (list.map((pokemon, index) => (
+                <div>
+                <ul>
                 <DisplayPokemon pokemon={pokemon} key={index}/>
-            </ul>
+                </ul>
+                </div>
         ))): (
-            <p>No pokemon to display</p>
-        )}
+            <div>No pokemon to display</div>
+        ))}
         </div>
     )
 }

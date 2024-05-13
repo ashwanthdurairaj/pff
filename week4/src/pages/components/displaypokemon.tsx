@@ -9,7 +9,7 @@ const DisplayPokemon : React.FC<pokemonProps> = ({pokemon, key}) =>
 {
     return (
         <>
-        <li key={key}>
+        <li>
         <img src={pokemon.image}></img>
         <br></br>
         Name: {pokemon.name}
@@ -20,6 +20,7 @@ const DisplayPokemon : React.FC<pokemonProps> = ({pokemon, key}) =>
             <div key={index} className="type-item">
                 {pokemon}
          </div>
+        
             ))}
         </li>
         </>

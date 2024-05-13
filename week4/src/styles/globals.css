@@ -96,21 +96,27 @@
     transform: translate(-50%, -50%);
   }
 
-  .centered-container {
+.centered-container {
     display: flex;
     flex-direction: column;
-    justify-content: top;
+    justify-content: center;
     align-items: center;
-    height: 100vh; /* Adjust the height as per your requirement */
+    height: 100vh; 
 }
 
 .types-container {
+  margin-left: 200px;
+}
+.list-containers {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   justify-content: center;
   align-items: center;
   flex-direction: row;
+  height: 100%
 }
+
+
 
 .type-item {
   margin-right: 10px; /* Adjust spacing between items */

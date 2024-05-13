@@ -1,7 +1,6 @@
-import React, {ChangeEvent, FormEvent, useState, useCallback} from 'react'
+import React, {ChangeEvent, FormEvent, useState} from 'react'
 import Search from './components/search'
 import DisplayTable from './components/displaytable'
-import fs from 'fs'
 
 function PokeSearch()
 {
@@ -11,8 +10,7 @@ function PokeSearch()
     const [loading, setLoading] = useState(false)
 
     const [pokemonList, setPokemonList] = useState<Record<string, any>[]>([])
-    
-    
+        
     const onChange = (event : ChangeEvent<HTMLInputElement>) => {
         setSearch(event.target.value)
     }
