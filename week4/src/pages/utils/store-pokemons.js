@@ -23,65 +23,37 @@ const storePokemon = async() => {
     });
 } 
 
-const accessPokemon = async(pokemon) => {
-
-  fs.readFile('pokemon.json', 'utf-8', async (err, jsonString) => {
-
-    if(err)
-    {
-      console.log("Error opening file: ", err)
-    }
-
-    const data = JSON.parse(jsonString)
-
-    let listOfPokemonFeatures = []
-    let fetchPromises = Object.keys(data).map(async(key) => {
-      if(key.includes(pokemon))
+async function lmao(search)
+{
+  const response = await fetch("https://pokeapi.co/api/v2/pokemon?limit=151")
+  const responseInJson = await response.json();
+  let final = []
+  const searchResult = responseInJson.results.filter((pokemon) => {
+    return pokemon.name.includes(search)
+  }).map(async(pokemon) => {
+    try{
+      let response = await fetch(pokemon.url)
+      if(!response.ok)
       {
-        let response = await fetch(data[key].url)
-        let pokemon = await response.json()
+        throw new Error('Error fetching data')
+      }
+      let responseInJson = await response.json()
         let pokeObject = {
-        name: pokemon.name,
-        id: pokemon.id,
-        type: pokemon.types.map((type) => type.type.name),
-        image: pokemon.sprites.front_default
-      };
-        listOfPokemonFeatures.push(pokeObject);
-        console.log(listOfPokemonFeatures)
+        name: responseInJson.name,
+        id: responseInJson.id,
+        type: responseInJson.types.map((type) => type.type.name),
+        image: responseInJson.sprites.front_default,
+      }
+      final.push(pokeObject)
+    }
+    catch(err)
+    {
+      console.error('Error fetching data for:', pokemon.name, err);
       }
     })
 
-    await Promise.all(fetchPromises)
-    console.log(listOfPokemonFeatures)
-    // const pokemonList = []
-  //   Object.keys(data).forEach((key) => {
-  //     if(key.includes(pokemon))
-  //       {
-  //         pokemonList.push(data[key].url)
-  //       }
-  //   })
-
-  // // Array to store fetched Pokemon features
-  // let listOfPokemonFeatures = [];
-
-  // // Array to store fetch promises
-  // let fetchPromises = pokemonList.map(async (link) => {
-  //   let data = await fetch(link);
-  //   let pokemon = await data.json();
-  //   let pokeObject = {
-  //     name: pokemon.name,
-  //     id: pokemon.id,
-  //     type: pokemon.types.map((type) => type.type.name),
-  //     image: pokemon.sprites.front_default
-  //   };
-  //   listOfPokemonFeatures.push(pokeObject);
-  // });
-
-  // // Wait for all fetch promises to resolve
-  // await Promise.all(fetchPromises);
-
-
-  })
+  await Promise.all(searchResult)
+  console.log(final);
 }
 
-accessPokemon('cha')
+lmao("cha")
