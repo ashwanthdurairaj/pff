@@ -56,7 +56,7 @@ function PokeSearch()
         const responseInJson = await response.json();
 
         const searchResult = responseInJson.results.filter((pokemon : Record<string, any>) => {
-          return pokemon.name.includes(search)
+          return pokemon.name.includes(search.toLowerCase())
         }).map(async(pokemon : Record<string, string>) => {
           try{
             let response = await fetch(pokemon.url)

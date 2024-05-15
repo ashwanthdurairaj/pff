@@ -10,10 +10,10 @@ const Search : React.FC<searchProps> = ({search, change, submit}) =>
 {
     
     return (
-        <div>
-        <form onSubmit = {submit}>
-            <input type = "text" placeholder = "Search Pokemon" value = {search} onChange = {change} />
-            <button type = "submit">Search</button>
+        <div className="searchBar">
+        <form onSubmit = {submit} className="form">
+            <input className = "search" type = "text" placeholder = "Search Pokemon" value = {search} onChange = {change} />
+            <button className = "button" type = "submit">Search</button>
         </form>
         </div>
     )

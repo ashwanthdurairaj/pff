@@ -8,20 +8,22 @@ interface pokemonProps{
 const DisplayPokemon : React.FC<pokemonProps> = ({pokemon, key}) => 
 {
     return (
-        <>
+        <div className="pokemonItem">
         <img src={pokemon.image}></img>
-        <br></br>
-        Name: {pokemon.name}
-        <br></br>
+        <div style={{ textTransform: 'uppercase' }}>
+        NAME: {pokemon.name}
+        </div>
+        <div style={{ textTransform: 'uppercase' }}>
         ID: {pokemon.id}
-        <br></br>
-        Type: {pokemon.type.map((pokemon : string, index : number) => (
-            <div key={index} className="type-item">
+        </div>
+        <div className="types">
+        TYPE: {pokemon.type.map((pokemon : string, index : number) => (
+            <div key={index} style = {{textTransform: 'uppercase'}}>
                 {pokemon}
          </div>
-        
             ))}
-        </>
+        </div>
+        </div>
     )
 }
 
