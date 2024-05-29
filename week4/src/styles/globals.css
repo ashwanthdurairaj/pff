@@ -197,7 +197,7 @@ img {
 
 .types{
   display:flex;
-  gap: 5px;
+  gap: 15px;
 }
 
 .search{
@@ -227,3 +227,135 @@ img {
   100% { transform: rotate(360deg); }
 }
 
+.typeBox{
+  background-color:#051820;
+  color:#F3F4F9
+}
+
+.icon {
+  border-radius: 100%;
+  height: 100px;
+  width: 100px;
+  margin:auto;
+  transition: 200ms all;
+}
+
+.icon:hover{
+  filter: saturate(200%);
+  transform: scale(1.1);
+  cursor: pointer;
+}
+
+.icon img {
+  height: 60%;
+  width: 60%;
+  margin: 20%;
+}
+
+.bug {
+  background-color: #92BC2C;
+  box-shadow: 0 0 20px #92BC2C;
+  border-radius: 5px;
+}
+
+.dark {
+  background: #595761;
+  box-shadow: 0 0 20px #595761;
+  border-radius: 5px;
+}
+
+.dragon {
+  background: #0C69C8;
+  box-shadow: 0 0 20px #0C69C8;
+  border-radius: 5px;
+}
+
+.electric {
+  background: #F2D94E;
+  box-shadow: 0 0 20px #F2D94E;
+  border-radius: 5px;
+}
+
+.fire {
+  background: #FBA54C;
+  box-shadow: 0 0 20px #FBA54C;
+  border-radius: 5px;
+}
+
+.fairy {
+  background: #EE90E6;
+  box-shadow: 0 0 20px #EE90E6;
+  border-radius: 5px;
+}
+
+.fighting {
+  background: #D3425F;
+  box-shadow: 0 0 20px #D3425F;
+  border-radius: 5px;
+}
+
+.flying {
+  background: #A1BBEC;
+  box-shadow: 0 0 20px #A1BBEC;
+  border-radius: 5px;
+}
+
+.ghost {
+  background: #5F6DBC;
+  box-shadow: 0 0 20px #5F6DBC;
+  border-radius: 5px;
+}
+
+.grass {
+  background: #5FBD58;
+  box-shadow: 0 0 20px #5FBD58;
+  border-radius: 5px;
+}
+
+.ground {
+  background: #DA7C4D;
+  box-shadow: 0 0 20px #DA7C4D;
+  border-radius: 5px;
+}
+
+.ice {
+  background: #75D0C1;
+  box-shadow: 0 0 20px #75D0C1;
+  border-radius: 5px;
+}
+
+.normal {
+  background: #A0A29F;
+  box-shadow: 0 0 20px #A0A29F;
+  border-radius: 5px;
+}
+
+.poison {
+  background: #B763CF;
+  box-shadow: 0 0 20px #B763CF;
+  border-radius: 5px;
+}
+
+.psychic {
+  background: #FA8581;
+  box-shadow: 0 0 20px #FA8581;
+  border-radius: 5px;
+}
+
+.rock {
+  background: #C9BB8A;
+  box-shadow: 0 0 20px #C9BB8A;
+  border-radius: 5px;
+}
+
+.steel {
+  background: #5695A3;
+  box-shadow: 0 0 20px #5695A3;
+  border-radius: 5px;
+}
+
+.water {
+  background: #539DDF;
+  box-shadow: 0 0 20px #539DDF;
+  border-radius: 5px;
+}

@@ -1,8 +1,9 @@
 import React from 'react'
 import DisplayPokemon from './displaypokemon'
+import { Pokemon } from '../schema/pokemonSchema';
 
 interface displayProps{
-    list: Record<string, any>[];
+    list: Pokemon[];
     loading: boolean;
 }
 

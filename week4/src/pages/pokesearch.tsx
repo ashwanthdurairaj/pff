@@ -1,6 +1,8 @@
-import React, {ChangeEvent, FormEvent, useState, useEffect} from 'react'
+import React, {ChangeEvent, FormEvent, useState, useEffect, useRef} from 'react'
 import Search from './components/search'
 import DisplayTable from './components/displaytable'
+import {Pokemon} from './schema/pokemonSchema'
+import {PokemonType} from './schema/pokemonTypesSchema'
 
 function PokeSearch()
 {
@@ -9,35 +11,45 @@ function PokeSearch()
 
     const [loading, setLoading] = useState(true)
 
-    const [pokemonList, setPokemonList] = useState<Record<string, any>[]>([])
+    const pokemonList = useRef<Pokemon[]>([]);
 
-    let final: Record<string, any>[] = []
+    const [displayList, setDisplayList] = useState<Pokemon[]>([])
+
 
     useEffect(() => {
+        const uniquePokemons = new Set<Pokemon>();
+
         const fetchAllPokemons = async() => {
         try{
-        const response = await fetch("https://pokeapi.co/api/v2/pokemon?limit=151")
-        const responseInJson = await response.json();
-        const allPokemons = responseInJson.results.map(async(pokemon: Record<string, string>) => {
-            const response = await fetch(pokemon.url)
-            const responseInJson = await response.json()
-            let pokeObject = {
-                name: responseInJson.name,
-                id: responseInJson.id,
-                type: responseInJson.types.map((type: Record<string, any>) => type.type.name),
-                image: responseInJson.sprites.front_default,
-              }
-              final.push(pokeObject)
-        })
-        await Promise.all(allPokemons)
-        setPokemonList(final)
+          const response = await fetch('https://pokeapi.co/api/v2/pokemon?limit=151')
+          const responseInJson = await response.json()
+          for(const pokemon of responseInJson.results)
+          {
+            const pokemonDetails = await fetch(pokemon.url)
+            const pokemonDetailsInJson = await pokemonDetails.json()
+            const pokeObject = {
+              name: pokemonDetailsInJson.name,
+              id: pokemonDetailsInJson.id,
+              type: pokemonDetailsInJson.types.map((type: PokemonType) => (
+                type.type.name
+              )),
+              image: pokemonDetailsInJson.sprites.front_default
+            }
+            uniquePokemons.add(pokeObject) 
+
+            if(uniquePokemons.size == 151)
+            {                    
+              break
+            }
+          }
+          pokemonList.current = Array.from(uniquePokemons)
+          setDisplayList(pokemonList.current)
         }
-        catch(err)
-        {
-            console.error("Error fetching data: ", err)
+        catch(err){
+          console.log("Error: " + err)
         }
         finally{
-            setLoading(false);
+          setLoading(false)
         }
     }
     fetchAllPokemons()
@@ -51,36 +63,10 @@ function PokeSearch()
         
         event.preventDefault()
         setLoading(true)
-
-        const response = await fetch("https://pokeapi.co/api/v2/pokemon?limit=151")
-        const responseInJson = await response.json();
-
-        const searchResult = responseInJson.results.filter((pokemon : Record<string, any>) => {
+        const displayPokemons = pokemonList.current.filter((pokemon : Pokemon) => {
           return pokemon.name.includes(search.toLowerCase())
-        }).map(async(pokemon : Record<string, string>) => {
-          try{
-            let response = await fetch(pokemon.url)
-            if(!response.ok)
-            {
-              throw new Error('Error fetching data')
-            }
-            let responseInJson = await response.json()
-            let pokeObject = {
-              name: responseInJson.name,
-              id: responseInJson.id,
-              type: responseInJson.types.map((type: Record<string, any>) => type.type.name),
-              image: responseInJson.sprites.front_default,
-            }
-            final.push(pokeObject)
-          }
-          catch(err)
-          {
-            console.error('Error fetching data for:', pokemon.name, err);
-            }
-          })
-      
-        await Promise.all(searchResult)
-        setPokemonList(final)
+        })
+        setDisplayList(displayPokemons)
         setLoading(false)
     }
 
@@ -88,7 +74,7 @@ function PokeSearch()
     return (
         <div className="centered-container">
         <Search search = {search} change = {onChange} submit = {submit}/>
-        <DisplayTable list = {pokemonList} loading = {loading}/>
+        <DisplayTable list = {displayList} loading = {loading}/>
         </div>
     )
 }
