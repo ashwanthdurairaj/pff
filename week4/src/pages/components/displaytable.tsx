@@ -3,12 +3,29 @@ import DisplayPokemon from './displaypokemon'
 import { Pokemon } from '../schema/pokemonSchema';
 
 interface displayProps{
-    list: Pokemon[];
+    list? : Pokemon[];
     loading: boolean;
 }
 
 const DisplayTable : React.FC<displayProps> = ({list, loading}) =>
 {
+    if(loading && !list)
+        {
+            return (
+                <div className="centered-container">
+                <span>Loading...</span>
+                </div>    
+            )   
+        }
+    
+        if(!list)
+            {
+                return (
+                    <div className="centered-container">
+                    <span>No Pokemon</span>
+                    </div>    
+                )
+            }
 
     return (
         
