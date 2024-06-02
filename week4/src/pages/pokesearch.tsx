@@ -1,38 +1,61 @@
-import React, {ChangeEvent, FormEvent, useState} from 'react'
+import React, { ChangeEvent, FormEvent, useState } from 'react'
 import Search from './components/search'
 import DisplayTable from './components/displaytable'
-import {useFetchAllPokemonsQuery} from './services/fetchAllPokemons'
+import { useFetchAllPokemonsQuery } from './services/fetchAllPokemons'
 import { filterPokemon } from './store/pokemonSlice'
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from './store/store';
+import { useDispatch, useSelector } from 'react-redux'
+import { RootState } from './store/store'
 
-function PokeSearch()
-{
+function PokeSearch() {
+  const [search, setSearch] = useState('')
 
-    const [search, setSearch] = useState("")
+  const [pokemonType, setPokemonType] = useState('')
 
-    const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
-    let { data , error, isLoading : loading } =  useFetchAllPokemonsQuery()
+  let { data, error, isLoading: loading } = useFetchAllPokemonsQuery()
 
-    const displayPokemons = useSelector((state : RootState) => state.pokemons.displayPokemons);
-        
-    const onChange = (event : ChangeEvent<HTMLInputElement>) => {
-        setSearch(event.target.value)
-    }
-    
-    const submit = async(event : FormEvent<HTMLFormElement>) => {
-        
-        event.preventDefault()
-        dispatch(filterPokemon(search));
-    }
+  const displayPokemons = useSelector(
+    (state: RootState) => state.pokemons.displayPokemons,
+  )
 
-    return (
-        <div className="centered-container">
-        <Search search = {search} change = {onChange} submit = {submit}/>
-        <DisplayTable list = {displayPokemons} loading = {loading}/>
-        </div>
+  const onChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setSearch(event.target.value)
+  }
+
+  const onSelectChange = (event: ChangeEvent<HTMLSelectElement>) => {
+    setPokemonType(event.target.value)
+  }
+
+  const submit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    dispatch(
+      filterPokemon({
+        searchTerm: search || '',
+        pokemonType: pokemonType || 'All',
+      }),
     )
+  }
+
+  if (loading) {
+    return (
+      <div className="centered-container">
+        <div className="spinner"></div>
+      </div>
+    )
+  }
+  return (
+    <div className="centered-container">
+      <Search
+        search={search}
+        type={pokemonType}
+        change={onChange}
+        submit={submit}
+        selectChange={onSelectChange}
+      />
+      <DisplayTable list={displayPokemons} />
+    </div>
+  )
 }
 
 export default PokeSearch
