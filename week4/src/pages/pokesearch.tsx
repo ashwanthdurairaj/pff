@@ -25,14 +25,22 @@ function PokeSearch() {
 
   const onSelectChange = (event: ChangeEvent<HTMLSelectElement>) => {
     setPokemonType(event.target.value)
+    const type = event.target.value
+    dispatch(
+      filterPokemon({
+        searchTerm: search || '',
+        pokemonType: type || 'All'
+      })
+    )
   }
 
   const submit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
+    console.log(pokemonType)
     dispatch(
       filterPokemon({
         searchTerm: search || '',
-        pokemonType: pokemonType || 'All',
+        pokemonType: pokemonType || 'All'
       }),
     )
   }

@@ -1,34 +1,12 @@
 import React from 'react'
-import Image from 'next/image'
 import { Pokemon } from '../schema/pokemonSchema'
-import { TypeIconProps } from '../schema/typeIconSchema'
 
 interface pokemonProps {
   pokemon: Pokemon
 }
 
-const typeIcons: TypeIconProps = {
-  bug: '/images/bug.svg',
-  dark: '/images/dark.svg',
-  dragon: '/images/dragon.svg',
-  electric: '/images/electric.svg',
-  fairy: '/images/fairy.svg',
-  fighting: '/images/fighting.svg',
-  fire: '/images/fire.svg',
-  flying: '/images/flying.svg',
-  ghost: '/images/ghost.svg',
-  grass: '/images/grass.svg',
-  ground: '/images/ground.svg',
-  ice: '/images/ice.svg',
-  normal: '/images/normal.svg',
-  poison: '/images/poison.svg',
-  psychic: '/images/psychic.svg',
-  rock: '/images/rock.svg',
-  steel: '/images/steel.svg',
-  water: '/images/water.svg',
-}
-
 const DisplayPokemon: React.FC<pokemonProps> = ({ pokemon }) => {
+
   return (
     <div className="pokemonItem">
       <img src={pokemon.image} alt={pokemon.name}></img>
@@ -37,12 +15,9 @@ const DisplayPokemon: React.FC<pokemonProps> = ({ pokemon }) => {
       <div className="types">
         {pokemon.type.map((type: string, index: number) => (
           <div key={index}>
-            <Image
-              src={typeIcons[type as keyof TypeIconProps]}
-              width={30}
-              height={30}
-              alt="lmao"
-            />
+            <svg width={30} height={30} aria-hidden="true">
+            <use xlinkHref={`sprite.svg#${type}`} />
+            </svg>
             <br></br>
             <br></br>
             <span className={`${type}`}>{type}</span>

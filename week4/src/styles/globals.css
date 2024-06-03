@@ -166,6 +166,7 @@ body {
 
 .form {
   display: flex;
+  padding-top: 60px;
 }
 
 img {
@@ -221,6 +222,14 @@ img {
 .button {
   height: 56px;
   width: 75px;
+  border-radius: 8px;
+  background-color: #f3f4f9;
+}
+
+.select {
+  height: 56px;
+  width: 75px;
+  background-color: #f3f4f9;
   border-radius: 8px;
 }
 
