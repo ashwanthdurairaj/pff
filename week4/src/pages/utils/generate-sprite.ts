@@ -1,37 +1,3 @@
-// const fs = require('fs');
-// const path = require('path');
-// const SVGSprite = require('svg-sprite');
-
-// // Create an instance of SVGSprite
-// const sprite = new SVGSprite({
-//   mode: {
-//     symbol: {
-//       dest: '.',  // Output directory
-//       sprite: 'sprite.svg'  // Output file name
-//     }
-//   }
-// });
-
-// // Add your SVG files to the sprite
-// const svgDir = path.join(__dirname, 'public', 'svgs');
-// fs.readdirSync(svgDir).forEach((file: string) => {
-//   if (file.endsWith('.svg')) {
-//     sprite.add(path.join(svgDir, file), null, fs.readFileSync(path.join(svgDir, file), 'utf8'));
-//   }
-// });
-
-// // Compile the sprite
-// sprite.compile((err: any, result: { symbol: { sprite: { contents: any; }; }; }) => {
-//   if (err) {
-//     console.error(err);
-//     return;
-//   }
-
-//   // Write the sprite to the destination
-//   fs.writeFileSync(path.join(__dirname, 'public', 'sprite.svg'), result.symbol.sprite.contents);
-//   console.log('SVG sprite generated!');
-// });
-
 const fs = require('fs')
 const path = require('path')
 const SVGSpriter = require('svg-sprite')

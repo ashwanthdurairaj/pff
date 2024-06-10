@@ -36,7 +36,6 @@ function PokeSearch() {
 
   const submit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    console.log(pokemonType)
     dispatch(
       filterPokemon({
         searchTerm: search || '',

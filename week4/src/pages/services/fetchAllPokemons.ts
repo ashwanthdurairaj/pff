@@ -26,6 +26,7 @@ export const fetchAllPokemonApi = createApi({
                 (type: PokemonType) => type.type.name,
               ),
               image: pokemonDetailsInJson.sprites.front_default,
+              url: pokemon.url
             }
             uniquePokemons.add(pokeObject)
 

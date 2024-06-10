@@ -29,6 +29,7 @@ const Search: React.FC<searchProps> = ({
           Search
         </button>
       </form>
+      <div>
       <select id="type" className="select" value={type} onChange={selectChange} >
           <option value="All">All</option>
           <option value="bug">Bug</option>
@@ -50,6 +51,8 @@ const Search: React.FC<searchProps> = ({
           <option value="steel">Steel</option>
           <option value="water">Water</option>
         </select>
+      </div>
+      
     </div>
   )
 }
