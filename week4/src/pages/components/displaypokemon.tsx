@@ -16,7 +16,7 @@ const DisplayPokemon: React.FC<pokemonProps> = ({ pokemon }) => {
         {pokemon.type.map((type: string, index: number) => (
           <div key={index}>
             <svg width={30} height={30} aria-hidden="true">
-            <use xlinkHref={`sprite.svg#${type}`} />
+            <use href={`sprite.svg#${type}`} />
             </svg>
             <br></br>
             <br></br>

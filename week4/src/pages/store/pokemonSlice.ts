@@ -23,7 +23,8 @@ const pokemonSlice = createSlice({
       action: PayloadAction<{ searchTerm: string; pokemonType: string }>,
     ) {
       const { searchTerm, pokemonType } = action.payload
-      if (pokemonType == 'All') {
+
+      if (pokemonType == 'all') {
         state.displayPokemons = state.allPokemons.filter((pokemon: Pokemon) => {
           return pokemon.name.includes(searchTerm.toLowerCase())
         })
